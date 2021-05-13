@@ -1,0 +1,17 @@
+{
+  "name": "https-reverse-proxy",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "https-proxy": "node src/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "http": "0.0.1-security",
+    "http-proxy": "^1.18.1",
+    "https": "^1.0.0"
+  }
+}
