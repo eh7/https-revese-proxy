@@ -95,7 +95,10 @@ if (process.env.HTTPS) {
   }, function (req, res) {
     // res.writeHead(200);
     // res.end("hello world\n");
-    proxy.web(req, res, { target: 'http://eh7.co.uk' });
+    // proxy.web(req, res, { target: 'http://eh7.co.uk' });
+    proxy.web(req, res, { target: process.env.TARGET_HOST });
+    // proxy.web(req, res, { target: 'http://127.0.0.1:8088' });
+    // proxy.web(req, res, { target: 'http://127.0.0.1:5001' });
   }).listen(PORT, "0.0.0.0", function(error) { 
     console.log(`TLS Server listening on port: ${PORT} :: error: ${error}`);
   });
