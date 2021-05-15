@@ -1,5 +1,5 @@
 var fs = require('fs');
-var https = require('http');
+var https = require('https');
 var http = require('http');
 var httpProxy = require('http-proxy');
 var proxy = httpProxy.createProxyServer({});
@@ -23,6 +23,49 @@ if (!PORT) {
 }
 
 if (process.env.HTTPS) {
+  /*
+  const chainLines = fs.readFileSync(
+    process.env.TLS_CHAIN,
+    'utf8'
+  ).split("\n");
+  let cert = [];
+  let ca = [];
+  chainLines.forEach(function(line) {
+    cert.push(line);
+    if (line.match(/-END CERTIFICATE-/)) {
+      ca.push(cert.join("\n"));
+      cert = [];
+    }
+  });
+
+  const options = {
+    // key: fs.readFileSync('key.pem'),
+    // cert: fs.readFileSync('cert.pem')
+    key: fs.readFileSync('certs/test00.key'),
+    cert: fs.readFileSync('certs/test00.crt'),
+    ca: ca
+  };
+  const options = {
+    key: fs.readFileSync('certs/test00.key'),
+    cert: fs.readFileSync('certs/test00.crt'),
+    ca: ca
+  };
+  https.createServer(options, function (req, res) {
+    proxy.web(req, res, { target: 'http://eh7.co.uk' });
+    // res.writeHead(200);
+    // res.end("hello world\n");
+  }).listen(8000, function () {
+    console.log('listening on port 8000');
+  });
+
+  https.createServer(options, function (req, res) {
+    res.writeHead(200);
+    res.end("hello world\n");
+  }).listen(PORT, function (error) {
+    console.log(`TLS Server listening on port: ${PORT} :: error: ${error}`);
+  });
+  */
+
   const privateKey  = fs.readFileSync(
     process.env.TLS_KEY,
     'utf8'
@@ -44,11 +87,14 @@ if (process.env.HTTPS) {
       cert = [];
     }
   });
+
   https.createServer({
     "key": privateKey,
     "cert": certificate,
     "ca": ca
   }, function (req, res) {
+    // res.writeHead(200);
+    // res.end("hello world\n");
     proxy.web(req, res, { target: 'http://eh7.co.uk' });
   }).listen(PORT, "0.0.0.0", function(error) { 
     console.log(`TLS Server listening on port: ${PORT} :: error: ${error}`);
